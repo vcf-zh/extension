@@ -1,6 +1,6 @@
 # VCF 中文化 - 浏览器扩展
 
-为 VMware Cloud Foundation 9.0 提供中文界面的浏览器扩展。无需服务器权限，安装即用。
+为 VMware Cloud Foundation 提供中文界面的浏览器扩展，持续跟进版本更新。无需服务器权限，安装即用。
 
 支持：**Chrome · Edge · Firefox**
 
