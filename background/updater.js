@@ -1,5 +1,5 @@
 const TRANSLATIONS_URL =
-  'https://cdn.jsdelivr.net/gh/vcf-zh/strings@main/versions/9.0/vsphere/zh_CN.json';
+  'https://cdn.jsdelivr.net/gh/vcf-zh/strings@main/versions/9.0/lookup.json';
 const CACHE_KEY = 'vcf_zh_translations';
 const UPDATE_INTERVAL_HOURS = 24;
 
@@ -27,4 +27,11 @@ chrome.runtime.onInstalled.addListener(updateTranslations);
 chrome.alarms.create('update-translations', { periodInMinutes: UPDATE_INTERVAL_HOURS * 60 });
 chrome.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name === 'update-translations') updateTranslations();
+});
+
+chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
+  if (msg.action === 'update') {
+    updateTranslations().then(() => sendResponse({ ok: true }));
+    return true;
+  }
 });
