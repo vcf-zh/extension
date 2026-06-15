@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: -apple-system, sans-serif; padding: 16px; width: 280px; }
+    h2 { font-size: 15px; margin: 0 0 12px; }
+    .row { display: flex; justify-content: space-between; align-items: center; margin: 8px 0; }
+    label { font-size: 13px; color: #333; }
+    .status { font-size: 11px; color: #888; margin-top: 12px; }
+    button { font-size: 12px; padding: 4px 10px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h2>VCF 中文化</h2>
+  <div class="row">
+    <label>启用中文化</label>
+    <input type="checkbox" id="toggle" checked>
+  </div>
+  <div class="row">
+    <button id="refresh">立即更新翻译包</button>
+  </div>
+  <div class="status" id="status">加载中...</div>
+  <script src="options.js"></script>
+</body>
+</html>

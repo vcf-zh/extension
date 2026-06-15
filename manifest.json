@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "VCF 中文化",
+  "version": "1.0.0",
+  "description": "为 VMware Cloud Foundation 9.0 提供中文界面支持",
+  "permissions": [
+    "storage",
+    "alarms"
+  ],
+  "host_permissions": [
+    "https://*/*"
+  ],
+  "background": {
+    "service_worker": "background/updater.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*/*"],
+      "js": ["content/translator.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "action": {
+    "default_popup": "options/options.html",
+    "default_title": "VCF 中文化"
+  }
+}
