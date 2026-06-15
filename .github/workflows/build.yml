@@ -1,0 +1,41 @@
+name: Build Extension
+
+on:
+  repository_dispatch:
+    types: [strings-tagged]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: strings 仓库的 Tag（如 vcf-9.0-r1）
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download latest translations
+        run: |
+          TAG=${{ github.event.inputs.tag || github.event.client_payload.tag }}
+          curl -L "https://raw.githubusercontent.com/vcf-zh/strings/${TAG}/versions/9.0/vsphere/zh_CN.json" \
+            -o background/zh_CN_vsphere.json
+
+      - name: Update manifest version
+        run: |
+          TAG=${{ github.event.inputs.tag || github.event.client_payload.tag }}
+          VERSION=$(echo $TAG | sed 's/vcf-//' | sed 's/-r/./')
+          jq --arg v "$VERSION" '.version = $v' manifest.json > manifest.tmp.json
+          mv manifest.tmp.json manifest.json
+
+      - name: Package extension
+        run: |
+          TAG=${{ github.event.inputs.tag || github.event.client_payload.tag }}
+          zip -r "vcf-zh-extension-${TAG}.zip" . -x "*.git*" -x "*.yml"
+
+      - name: Upload to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.inputs.tag || github.event.client_payload.tag }}
+          files: "*.zip"
+          token: ${{ secrets.GITHUB_TOKEN }}
