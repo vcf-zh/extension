@@ -3,16 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <style>
-    body { font-family: -apple-system, sans-serif; padding: 16px; width: 280px; }
+    body { font-family: -apple-system, sans-serif; padding: 16px; width: 300px; }
     h2 { font-size: 15px; margin: 0 0 12px; }
     .row { display: flex; justify-content: space-between; align-items: center; margin: 8px 0; }
     label { font-size: 13px; color: #333; }
-    .status { font-size: 11px; color: #888; margin-top: 12px; }
-    button { font-size: 12px; padding: 4px 10px; cursor: pointer; }
+    .status { font-size: 11px; color: #888; margin-top: 8px; }
+    button { font-size: 12px; padding: 5px 12px; cursor: pointer; border: 1px solid #ccc; border-radius: 4px; background: #f5f5f5; }
+    button:hover { background: #e8e8e8; }
+    .divider { border: none; border-top: 1px solid #eee; margin: 12px 0; }
+    .collect-box { background: #f0f7ff; border-radius: 6px; padding: 10px; margin-top: 8px; }
+    .collect-count { font-size: 20px; font-weight: bold; color: #1a73e8; }
+    .collect-label { font-size: 11px; color: #555; margin-bottom: 8px; }
+    .btn-submit { background: #1a73e8; color: white; border: none; width: 100%; padding: 7px; font-size: 13px; border-radius: 4px; margin-top: 6px; }
+    .btn-submit:hover { background: #1558b0; }
+    .btn-clear { font-size: 11px; color: #999; background: none; border: none; padding: 2px; cursor: pointer; }
   </style>
 </head>
 <body>
   <h2>VCF 中文化</h2>
+
   <div class="row">
     <label>启用中文化</label>
     <input type="checkbox" id="toggle" checked>
@@ -21,6 +30,18 @@
     <button id="refresh">立即更新翻译包</button>
   </div>
   <div class="status" id="status">加载中...</div>
+
+  <hr class="divider">
+
+  <div class="collect-box">
+    <div class="collect-label">浏览 VCF 时自动收集到的新字符串</div>
+    <div class="collect-count" id="unknownCount">0</div>
+    <div class="collect-label">条待翻译字符串</div>
+    <button class="btn-submit" id="submitBtn">📋 复制并提交 GitHub Issue</button>
+    <br>
+    <button class="btn-clear" id="clearBtn">清空已收集</button>
+  </div>
+
   <script src="options.js"></script>
 </body>
 </html>
