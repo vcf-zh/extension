@@ -1,10 +1,26 @@
 let translations = null;
 let enabled = true;
 
+const TRANSLATIONS_URL =
+  'https://cdn.jsdelivr.net/gh/vcf-zh/strings@main/versions/9.0/lookup.json';
+
 async function loadTranslations() {
   const result = await chrome.storage.local.get(['vcf_zh_translations', 'vcf_zh_enabled']);
-  translations = result.vcf_zh_translations || {};
   enabled = result.vcf_zh_enabled !== false;
+  if (result.vcf_zh_translations && Object.keys(result.vcf_zh_translations).length > 0) {
+    translations = result.vcf_zh_translations;
+  } else {
+    // service worker 未运行时（Firefox 常见）直接 fetch
+    try {
+      const resp = await fetch(TRANSLATIONS_URL);
+      if (resp.ok) {
+        translations = await resp.json();
+        chrome.storage.local.set({ vcf_zh_translations: translations, last_updated: Date.now() });
+      }
+    } catch (e) {
+      translations = {};
+    }
+  }
 }
 
 function translateNode(node) {
