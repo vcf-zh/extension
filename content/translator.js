@@ -2,7 +2,7 @@ let translations = null;
 let enabled = true;
 
 const TRANSLATIONS_URL =
-  'https://cdn.jsdelivr.net/gh/vcf-zh/strings@main/versions/9.0/lookup.json';
+  'https://cdn.jsdelivr.net/gh/vcf-zh/strings@main/versions/9.1/lookup.json';
 
 async function loadTranslations() {
   const result = await chrome.storage.local.get(['vcf_zh_translations', 'vcf_zh_enabled']);

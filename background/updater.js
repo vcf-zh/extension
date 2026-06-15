@@ -1,5 +1,5 @@
 const TRANSLATIONS_URL =
-  'https://cdn.jsdelivr.net/gh/vcf-zh/strings@main/versions/9.0/lookup.json';
+  'https://cdn.jsdelivr.net/gh/vcf-zh/strings@main/versions/9.1/lookup.json';
 const CACHE_KEY = 'vcf_zh_translations';
 const UPDATE_INTERVAL_HOURS = 24;
 
